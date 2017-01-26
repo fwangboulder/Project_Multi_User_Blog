@@ -5,3 +5,9 @@ Building a multi user blog (along the lines of Medium) where users can sign in
 and post blog posts as well as 'Like' and 'Comment'.This blog is hosted on
 Google App Engine and  an authentication system is also created for
 users to be able to register and sign in and then create blog posts!
+
+
+app.yaml:
+
+andlers url: /static, /favicon\.ico, .*
+libraries: webapp2,jinja2
