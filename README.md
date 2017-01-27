@@ -12,6 +12,7 @@ Python, Webapp2, jinja2, Google Cloud Platform,  Cloud Datastore , HTML, CSS, Bo
 You can download all the files: $ git clone https://github.com/fwangboulder/Project_Multi_User_Blog.git
 
 **How to run it locally?**
+
 step 1: $ dev_appserver.py [your folder path]
 
         note: if you are right in the SinglePageBlog folder: $ dev_appserver.py ./
@@ -38,17 +39,17 @@ step 2: Change the application (in app.yaml) to the your ID.
 
 step 3: host it using Google App Engine
 
-$ gcloud config set project awesomewangblog
+        $ gcloud config set project awesomewangblog
 
-$ gcloud beta app create
+        $ gcloud beta app create
 
-$ appcfg.py update [path]
+        $ appcfg.py update [path]
 
 step 4: browse it
 
-$ gcloud app browse
+        $ gcloud app browse
 
-**How to use the online version?**
+** online !!!**
 
 My website link is: https://awesomewangblog.appspot.com
 
