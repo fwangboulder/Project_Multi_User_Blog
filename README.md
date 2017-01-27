@@ -5,9 +5,9 @@ Built a multi user blog where users can sign in and post blog posts as well as
 'Like' and 'Comment'.This blog is hosted on Google App Engine and an authentication system
 was also created for users to be able to signup and sign in and then create blog posts!
 
-**key words**: Python, Webapp2, jinja2, Google Cloud Platform,  Cloud Datastore
+**key words**:
 
-                HTML, CSS, BootStrap
+Python, Webapp2, jinja2, Google Cloud Platform,  Cloud Datastore , HTML, CSS, BootStrap
 
 You can download all the files: $ git clone https://github.com/fwangboulder/Project_Multi_User_Blog.git
 
