@@ -411,7 +411,7 @@ class LikePostHandler(BlogHandler):
         if self.user and self.user.key().id() == post.user_id:
             error = "Sorry, you cannot like your own post."
             self.render('base.html', access_error=error)
-        elif not self.user:
+        if not self.user:
             self.redirect('/login')
         else:
             user_id = self.user.key().id()

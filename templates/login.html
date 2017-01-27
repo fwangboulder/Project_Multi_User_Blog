@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-  
+
     <div class="login">
-        <h5 class="login__header">Login</h5>
+        <h2 class="login__header">Login</h2>
         <p class="login__message">{{error}}</p>
         <div class="login__form">
             <form method="post">
-                <input autofocus class="form__input" placeholder="Username" type="text" name="username" value="{{username}}">
-                <input class="form__input" placeholder="Password" type="password" name="password" value="">
-                <input class="form__submit" type="submit" value="login">
+              <div class="form-input">
+                <label for="username">Username:</label>
+                <input type="text" class="form-input" placeholder="Enter Username" name="username" value="{{username}}">
+              </div>
+              <div class="form-input">
+                <label for="password">Password:</label>
+                <input type="password" class="form-input" placeholder="Enter Password" name="password" value="">
+              </div>
+              <input class="form__submit" type="submit" value="login">
+
             </form>
         </div>
         <div class="login__footer">
@@ -17,5 +24,5 @@
         </div>
     </div>
 
-  
+
 {% endblock %}

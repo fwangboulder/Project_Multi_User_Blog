@@ -1,23 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-  
     <div class="signup">
-        <h5 class="signup__header">Create Your Account</h5>
+        <h2 class="signup__header">Create Your Account</h2>
         <p class="signup__message">{{error}}</p>
         <div class="signup__form">
             <form method="post">
-                <input autofocus class="form__input" placeholder="Username" type="text" name="username" value="{{username}}">
-                <input class="form__input" placeholder="Password" type="password" name="password" value="">
-                <input class="form__input" placeholder="Repeat Password" type="password" name="verify" value="">
-                <input class="form__input" placeholder="Email (optional)" type="text" name="email" value="{{email}}">
-                <input class="form__submit" type="submit" value="signup">
+              <div class="form-input">
+                <label for="username">Username:</label>
+                <input type="text" class="form-input" placeholder="Enter Username" name="username" value="{{username}}">
+              </div>
+              <div class="form-input">
+                <label for="password">Password:</label>
+                <input type="password" class="form-input" placeholder="Enter Password" name="password" value="">
+              </div>
+              <div class="form-input">
+                <label for="password">Verify Password:</label>
+                <input type="password" class="form-input" placeholder="Enter Password again"  name="verify" value="">
+              </div>
+              <div class="form-input">
+                <label for="email">Email Address:</label>
+                <input type="text" class="form-input" placeholder="Enter Email (optional)"  name="email" value="{{email}}">
+              </div>
+
+              <input class="form__submit" type="submit" value="Signup">
+
             </form>
-        </div>
-        <div class="signup__terms">
-            <span>By signing up, you agree to our </span><a href="">Terms & Conditions</a>.
         </div>
     </div>
 
-  
+
 {% endblock %}

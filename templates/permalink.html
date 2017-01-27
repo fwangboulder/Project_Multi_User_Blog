@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  
+
 	{% if user %}
 		{{post.render(user.key().id()) | safe}}
 	{% else %}
@@ -11,12 +11,12 @@
 	{% if user and user.key().id() == post.user_id %}
 		<a href="/{{post.key().id()}}/delete/{{post.user_id}}">
 			<div class="post__delete">
-				<img src="/static/images/rubbish-bin.svg" alt="" class="delete__icon">
+				<button>Delete</button>
 			</div>
 		</a>
 		<a href="/{{post.key().id()}}/edit">
 			<div class="post__edit">
-				<img src="/static/images/edit.svg" alt="" class="edit__icon">
+				<button>Edit</button>
 			</div>
 		</a>
 	{% elif user %}
@@ -25,7 +25,7 @@
 		</a> -->
 		<a href="/{{post.key().id()}}/unlike">
 			<div class="post__dislike">
-				<img src="/static/images/dislike.svg" alt="" class="dislike__icon">
+				<button>Dislike</button>
 			</div>
 		</a>
 	{% endif %}
@@ -33,7 +33,7 @@
 	{% if user %}
 		<a href="/{{post.key().id()}}/addcomment/{{user.key().id()}}">
 			<div class="post__comment">
-				<img src="/static/images/comment-bubble.svg" alt="" class="comment__icon">
+				<button>Comment</button>
 			</div>
 		</a>
 	{% endif %}
@@ -42,12 +42,10 @@
 		{% for c in comments %}
 			<div class="comment">
 			    <div class="comment__meta">
-			        <div class="meta__author">
-			            <img class="meta__author__image" src="/static/images/compose.svg" alt="">
-			        </div>
+
 			        <div class="meta__comment">
 			            <div class="meta__comment__author">{{c.user_name}}</div>
-			            <div class="meta__comment__date">{{c.created.strftime("%b %d, %Y")}}</div>
+			            <div class="meta__comment__date">{{c.created.strftime("%c")}}</div>
 			        </div>
 			    </div>
 			    <p class="comment__content">
@@ -57,12 +55,12 @@
 				    {% if user and user.key().id() == c.user_id %}
 				    	<a href="/{{post.key().id()}}/{{c.user_id}}/deletecomment/{{ c.key().id() }}">
 				    		<div class="comment__delete">
-				    			<img src="/static/images/rubbish-bin.svg" alt="" class="delete__icon">
+				    			<button>Delete</button>
 				    		</div>
 				    	</a>
 				    	<a href="/{{post.key().id()}}/{{c.user_id}}/editcomment/{{ c.key().id() }}">
 				    		<div class="comment__edit">
-				    			<img src="/static/images/edit.svg" alt="" class="edit__icon">
+				    			<button>Edit </button>
 				    		</div>
 				    	</a>
 				    {% endif %}
@@ -72,5 +70,5 @@
 	</div>
 
 	<i>{{error}}</i>
-  
+
 {% endblock %}

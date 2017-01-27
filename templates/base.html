@@ -4,39 +4,40 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+	<link type="text/css" rel="stylesheet" href="/static/main.css" />
 	<title>Wang Blog</title>
 </head>
 <body>
 	<div class="wrapper">
-		<nav class="navigation">
-			<div class="container">
-				<a href="/" class="navigation__title">
-					<!-- <img class="title__image" src="/static/images/compose.svg" alt=""> -->
-					{% if user %}
-						<h1 class="title__text">Welcome, {{user.name}}!</h1>
-					{% else %}
-						<h1 class="title__text">Wang Blog</h1>
-					{% endif %}
-				</a>
-				<ul class="navigation__list">
-					{% if user %}
-						<li class="list__item">
-							<a href="/newpost" class="list__item__link">New Post</a>
-						</li>
-						<li class="list__item">
-							<a href="/logout" class="list__item__link">Logout</a>
-						</li>
-					{% else %}
-						<li class="list__item">
-							<a href="/signup" class="list__item__link">Signup</a>
-						</li>
-						<li class="list__item">
-							<a href="/login" class="list__item__link">Login</a>
-						</li>
-					{% endif %}
-				</ul>
-			</div>
-		</nav>
+		<nav class="navbar navbar-inverse">
+  	<div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Welcome, write your story!</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+			{% if not user %}
+      	<li class='list_item'><a href="/signup"><span class="list__item__link"></span> Sign Up</a></li>
+      	<li class='list_item'><a href="/login"><span class="list__item__link"></span> Login</a></li>
+			{% else %}
+				<li class=list_item><a href="/newpost"><span class="list__item__link"></span> New Post</a></li>
+				<li class=list_item><a href="/logout"><span class="list__item__link"></span> Log out</a></li>
+			{% endif %}
+			  <li class="list_item"><a  href="/"><span class="list__item__link"></span>Home</a>
+
+    </ul>
+  </div>
+</div>
+<div class="container">
+	<a href="/" class="navigation__title">
+		<!-- <img class="title__image" src="/static/images/compose.svg" alt=""> -->
+		{% if user %}
+			<h1 class="title__text">Hi, {{user.name}}! Please click title to reply.</h1>
+		{% endif %}
+	</a>
+</div>
+</nav>
+
 		<section class="content">
 			<div class="container">
 				{{access_error}}
