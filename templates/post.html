@@ -13,17 +13,16 @@
             <div class="meta__post__date">{{p.created.strftime("%c")}}</div>
         </div>
     </div>
+
     <p class="post__content">
         {{p._render_text | safe}}
     </p>
+
     <div class="post__like">
         <a href="/{{p.key().id()}}/like"><button>Like</button>
         </a>
         <span class="like__count">{{p.likes}} </span>
     </div>
-
-
-
 
 </div>
 {% endblock %}

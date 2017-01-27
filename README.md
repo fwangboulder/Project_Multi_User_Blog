@@ -49,7 +49,7 @@ step 4: browse it
 
         $ gcloud app browse
 
-** online !!!**
+**Online !!!**
 
 My website link is: https://awesomewangblog.appspot.com
 
