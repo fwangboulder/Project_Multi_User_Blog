@@ -148,8 +148,8 @@ class PostHandler(BlogHandler):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
         if not post:
-            self.error(404)
-            return
+            error = "404 Not Found!"
+            self.render('base.html', access_error=error)
 
         comments = db.GqlQuery(
             "select * from Comment where ancestor is :1 order by created desc limit 10", key)
@@ -194,8 +194,8 @@ class EditPostHandler(BlogHandler):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
         if not post:
-            return self.redirect('/login')
-
+            error = "404 Not Found!"
+            self.render('base.html', access_error=error)
 
         if self.user and self.user.key().id() == post.user_id:
             self.render('editpost.html', subject=post.subject,
@@ -241,13 +241,15 @@ class EditPostHandler(BlogHandler):
 class DeletePostHandler(BlogHandler):
 
     def get(self, post_id, post_user_id):
+
         if self.user and self.user.key().id() == int(post_user_id):
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(key)
             if not post:
-                return self.redirect('/login')
-            post.delete()
+                error="404 Not Found."
+                self.render("base.html", access_error=error)
 
+            post.delete()
             self.redirect('/')
 
         elif not self.user:
@@ -257,7 +259,8 @@ class DeletePostHandler(BlogHandler):
             key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             post = db.get(key)
             if not post:
-                return self.redirect('/login')
+                error="404 Not Found."
+                self.render("base.html", access_error=error)
             comments = db.GqlQuery(
                 "select * from Comment where ancestor is :1 order by created desc limit 10", key)
 
@@ -273,11 +276,13 @@ class LikePostHandler(BlogHandler):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
         if not post:
-            return self.redirect('/login')
+            error = "404 Not Found!"
+            self.render('base.html', access_error=error)
+
         if self.user and self.user.key().id() == post.user_id:
             error = "Sorry, you cannot like your own post."
             self.render('base.html', access_error=error)
-        if not self.user:
+        elif not self.user:
             self.redirect('/login')
         else:
             user_id = self.user.key().id()
@@ -308,7 +313,8 @@ class UnlikePostHandler(BlogHandler):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
         if not post:
-            return self.redirect('/login')
+            error = "404 Not Found!"
+            self.render('base.html', access_error=error)
 
         if self.user and self.user.key().id() == post.user_id:
             self.write("You cannot dislike your own post")
@@ -344,7 +350,8 @@ class AddCommentHandler(BlogHandler):
         key = db.Key.from_path('Post', int(post_id), parent=blog_key())
         post = db.get(key)
         if not post:
-            return self.redirect('/login')
+            error = "404 Not Found!"
+            self.render('base.html', access_error=error)
         if not self.user:
             return
 
@@ -373,8 +380,8 @@ class EditCommentHandler(BlogHandler):
             key = db.Key.from_path('Comment', int(comment_id), parent=postKey)
             comment = db.get(key)
             if not comment:
-                self.error(404)
-                return
+                error = "404 Not Found!"
+                self.render('base.html', access_error=error)
 
             self.render('editcomment.html', content=comment.content)
 
@@ -395,8 +402,8 @@ class EditCommentHandler(BlogHandler):
             key = db.Key.from_path('Comment', int(comment_id), parent=postKey)
             comment = db.get(key)
             if not comment:
-                self.error(404)
-                return
+                error = "404 Not Found!"
+                self.render('base.html', access_error=error)
             comment.content = content
             comment.put()
 
@@ -416,8 +423,8 @@ class DeleteCommentHandler(BlogHandler):
             key = db.Key.from_path('Comment', int(comment_id), parent=postKey)
             comment = db.get(key)
             if not comment:
-                self.error(404)
-                return
+                error = "404 Not Found!"
+                self.render('base.html', access_error=error)
             comment.delete()
 
             self.redirect('/' + post_id)
