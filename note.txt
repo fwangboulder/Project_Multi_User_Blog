@@ -1,0 +1,78 @@
+Model Refactoring
+
+Consider putting each model into their own file. For example, User would go in a user.py file. Then place all these files containing models into a folder called "models". your file structure will look something like:
+
+models (a folder)
+-> user.py
+-> post.py
+-> comment.py
+and so on...
+The benefit of doing this is that your code will be much more maintainable. For example, to find the User model you won't have to scroll through a large file to find it, you'll just go directly to the user.py file.
+
+Handler Refactoring
+
+Consider doing something similar for Handlers as well.
+
+handlers (a folder)
+-> signup.py
+-> signin.py
+-> newpost.py
+and so on...
+To accomplish this, look up Python packages. Here is a link to get your started on creating Python packages: http://pythoncentral.io/how-to-create-a-python-package/.
+
+************
+The relationship between the User and the Post is an example of a "one-to-many relationship." The standard implementation for this relationship is through the use of “ReferenceProperty”. See how to use it here: https://cloud.google.com/appengine/articles/modeling#one-to-many.
+
+Alternatively you can use the KeyProperty.
+
+The benefit of using a KeyProperty or a ReferenceProperty is that you have direct access to that key with this variable. In contrast, if you store a user as an Integer ID or a String username, you need to query your database to get the key. So, this is HIGHLY recommended if you want to clean up your code.
+
+Can you think of other cases where you can use this in your code?
+
+Note: To use KeyProperty or ReferenceProperty you must use NDB, the new DataStore API. To convert to NDB, follow this doc: https://cloud.google.com/appengine/docs/python/ndb/db_to_ndb.
+
+***********
+You have no guarantee that the provided post ID is valid. So, you must make sure this post object exists. To take the point further: If the post does not exist, it will be a NoneType object. So, when you try to access variables in your post (like the post title), then the code will throw an error, making your site blow up.
+
+Check that a post exists by doing:
+
+key = db.Key.from_path('Post', int(post_id))
+post = db.get(key)
+if not post:
+    return self.redirect(‘login’)
+A clever way to implement this is by putting this code in a Python decorator. You should make a decorator called something like check_if_valid_post(), then apply it your get and post methods, like so:
+
+@check_if_valid_post
+def get(self, post_id):
+Here is a link on decorators in case you're not familiar: http://www.artima.com/weblogs/viewpost.jsp?thread=240808.
+
+And here’s an example, notice how we pass along the post object:
+
+def post_exists(function):
+    @wraps(function)
+    def wrapper(self, post_id):
+        key = db.Key.from_path('Post', int(post_id))
+        post = db.get(key)
+        if post:
+            return function(self, post_id, post)
+        else:
+            self.error(404)
+            return
+    return wrapper
+I would make the following decorators:
+
+post_exists
+comment_exists
+user_logged_in
+user_owns_post
+user_owns_comment
+Using decorators is completely optional, but you must check for these ^ errors. Be sure to check all your handlers for these errors.
+
+Another option is to put this functionality into the base Handler class. For example:
+
+def user_owns_post(self, post):
+    return self.user.key == post.author # this is psuedo code
+Then use it like so:
+
+if not user_owns_post(post_variable):
+    return self.redirect('/')
