@@ -7,6 +7,8 @@ was also created for users to be able to signup and sign in and then create blog
 
 **key words**: Python, Webapp2, jinja2, Google Cloud Platform,  Cloud Datastore
 
+                HTML, CSS, BootStrap
+
 You can download all the files: $ git clone https://github.com/fwangboulder/Project_Multi_User_Blog.git
 
 **How to run it locally?**
